@@ -90,7 +90,9 @@ class Bitems extends StatelessWidget {
     return Column(
        children: <Widget>[
         Container(
-          padding: EdgeInsets.only(
+          padding: EdgeInsets.only( 
+            left: 5,
+            right: 5,
 //            left: leftAligned ? 0 : containerPadding,
 //            right: leftAligned ? containerPadding : 0,
           ),
@@ -103,14 +105,14 @@ class Bitems extends StatelessWidget {
             decoration:
               BoxDecoration(borderRadius: BorderRadius.circular(10)),
               child: ClipRRect(
-//                 borderRadius: BorderRadius.horizontal(
-// //                  left: leftAligned
+                 borderRadius: BorderRadius.horizontal(
+                   left: //leftAligned
 //                     ?Radius.circular(0)
-//                     : Radius.circular(containerBorderRadius),
-//                   right: leftAligned
-//                     ? Radius.circular(containerBorderRadius)
-//                     : Radius.circular(0),
-//                 ),
+                      Radius.circular(containerBorderRadius),
+                   right: //leftAligned
+                      Radius.circular(containerBorderRadius)
+//                      : Radius.circular(0),
+                 ),
                 child: Image.network(
                   imageUrl,
                   fit: BoxFit.fill,
