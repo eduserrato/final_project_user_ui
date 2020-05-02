@@ -2,6 +2,7 @@ import 'package:final_project_user_ui/main.dart';
 import 'package:flutter/material.dart';
 import 'package:final_project_user_ui/model/bar_item.dart';
 import 'package:flutter/material.dart';
+import 'model/drink_item.dart';
 
 class SearchBarScreen extends StatefulWidget {
 
@@ -28,7 +29,7 @@ class _SearchBarScreenState extends State<SearchBarScreen> {
                 )
              ],
            ),
-         ), )
+         ), ),
       // Column(
       //   crossAxisAlignment: CrossAxisAlignment.start,
       //   children: <Widget>[
@@ -36,7 +37,67 @@ class _SearchBarScreenState extends State<SearchBarScreen> {
       //     searchBar(),
       // ],
       //) 
-      
+       bottomNavigationBar: BottomAppBar(
+          child: Container(
+              color: Color(0xFFBA55D3),
+              height: 55,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  MaterialButton(
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Icon(Icons.local_bar),
+                          Text("Products"),
+                        ]),
+                    onPressed: () async {
+                     List<FoodItem>foodItemsList = await foodItems();
+          Navigator.push(context,
+               MaterialPageRoute(builder: (context) => Home(foodItemsList)));
+               
+                     
+                      print('Products Button Pressed'); ////HERE IS THE NAVEGATION TO OTHER PAGES
+                    },
+                  ),
+                  MaterialButton(
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Icon(Icons.location_on),
+                          Text("Bars"),
+                        ]),
+                    onPressed: () async {
+                      // List<OrderItem> orderItemsList = await orderItems();
+                       Navigator.push(
+                           context,
+                           MaterialPageRoute(
+                               builder: (context) =>
+                                   SearchBarScreen()));
+                      print(
+                          'Bars Button Pressed'); ////HERE IS THE NAVEGATION TO OTHER PAGES
+                    },
+                  ),
+                  MaterialButton(
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Icon(Icons.receipt),
+                          Text("Tab"),
+                        ]),
+                    onPressed: () async {
+                      // List<OrderItem> orderItemsList = await orderItems();
+                      // Navigator.push(
+                      //     context,
+                      //     MaterialPageRoute(
+                      //         builder: (context) =>
+                      //             OrdersScreen(orderItemsList)));
+                      print(
+                          'Bars Button Pressed'); ////HERE IS THE NAVEGATION TO OTHER PAGES
+                    },
+                  ),
+                ],
+              ))),
       
     );
   }
@@ -93,8 +154,6 @@ class Bitems extends StatelessWidget {
           padding: EdgeInsets.only( 
             left: 5,
             right: 5,
-//            left: leftAligned ? 0 : containerPadding,
-//            right: leftAligned ? containerPadding : 0,
           ),
       
       child: Column(
@@ -106,12 +165,11 @@ class Bitems extends StatelessWidget {
               BoxDecoration(borderRadius: BorderRadius.circular(10)),
               child: ClipRRect(
                  borderRadius: BorderRadius.horizontal(
-                   left: //leftAligned
-//                     ?Radius.circular(0)
+                   left: 
                       Radius.circular(containerBorderRadius),
-                   right: //leftAligned
+                   right: 
                       Radius.circular(containerBorderRadius)
-//                      : Radius.circular(0),
+
                  ),
                 child: Image.network(
                   imageUrl,

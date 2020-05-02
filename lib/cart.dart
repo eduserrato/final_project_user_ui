@@ -365,7 +365,9 @@ class ItemContent extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(5),
             child: Image.network(
-              foodItem.imgUrl,
+              foodItem.imgUrl,  //cange later after fixing database.
+              //"https://i2.chefiso.com/srv/images/vegasbomb-splash-coverblock-850x850.jpg",
+
               fit: BoxFit.fitHeight,
               height: 55,
               width: 80,

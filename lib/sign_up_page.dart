@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'main.dart';
+import 'model/drink_item.dart';
 
 class SignUpScreen extends StatefulWidget {
   @override
@@ -183,8 +184,12 @@ Widget _buildPasswordConfirmation() {
       child: RaisedButton(
         elevation:
             5.0, //here is to make it look higher than the others like it was above
-        onPressed: () =>  Navigator.push(context,
-              MaterialPageRoute(builder: (context) => Home())),//print('Login Button Pressed'),
+        onPressed: () async{ 
+         List<FoodItem>foodItemsList = await foodItems();
+          Navigator.push(context,
+               MaterialPageRoute(builder: (context) => Home(foodItemsList)));
+               print('Login Button Pressed');       ////HERE IS THE NAVEGATION TO OTHER PAGES
+        },//print('Login Button Pressed'),
         padding: EdgeInsets.all(15.0),
         shape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),

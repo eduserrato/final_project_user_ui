@@ -24,15 +24,21 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         title: "Tipsy Delivery",
-        home: SearchBarScreen(), // here is where you see what you ARE RUNNINGGG!!!!!!!!!!
+        home: LoginScreen(), // here is where you see what you ARE RUNNINGGG!!!!!!!!!!
         debugShowCheckedModeBanner: false,
       ),
     );
   }
 }
 
-class Home extends StatelessWidget {
-  
+class Home extends StatefulWidget {
+  List<FoodItem>foodItemsList;
+  Home(this.foodItemsList);
+  @override
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,7 +48,7 @@ class Home extends StatelessWidget {
           children: <Widget>[
             FirstHalf(),
             SizedBox(height: 45),
-            for (var foodItem in fooditemList.foodItems)
+            for (var foodItem in widget.foodItemsList)
               Builder(
                 builder: (context) {
                   return ItemContainer(foodItem: foodItem);
@@ -51,9 +57,74 @@ class Home extends StatelessWidget {
           ],
         ),
       )),
+      bottomNavigationBar: BottomAppBar(
+          child: Container(
+              color: Color(0xFFBA55D3),
+              height: 55,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  MaterialButton(
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Icon(Icons.local_bar),
+                          Text("Products"),
+                        ]),
+                    onPressed: () async {
+                      // List<FoodItem> foodItemsList = await foodItems();
+                      // Navigator.push(
+                      //     context,
+                      //     MaterialPageRoute(
+                      //         builder: (context) =>
+                      //             ProductsScreen(foodItemsList)));
+                     
+                      print('Products Button Pressed'); ////HERE IS THE NAVEGATION TO OTHER PAGES
+                    },
+                  ),
+                  MaterialButton(
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Icon(Icons.location_on),
+                          Text("Bars"),
+                        ]),
+                    onPressed: () async {
+                      // List<OrderItem> orderItemsList = await orderItems();
+                       Navigator.push(
+                           context,
+                           MaterialPageRoute(
+                               builder: (context) =>
+                                   SearchBarScreen()));
+                      print(
+                          'Bars Button Pressed'); ////HERE IS THE NAVEGATION TO OTHER PAGES
+                    },
+                  ),
+                  MaterialButton(
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Icon(Icons.receipt),
+                          Text("Tab"),
+                        ]),
+                    onPressed: () async {
+                      // List<OrderItem> orderItemsList = await orderItems();
+                      // Navigator.push(
+                      //     context,
+                      //     MaterialPageRoute(
+                      //         builder: (context) =>
+                      //             OrdersScreen(orderItemsList)));
+                      print(
+                          'Bars Button Pressed'); ////HERE IS THE NAVEGATION TO OTHER PAGES
+                    },
+                  ),
+                ],
+              ))),
     );
   }
+
 }
+
 
 class ItemContainer extends StatelessWidget {
   
@@ -91,7 +162,6 @@ class ItemContainer extends StatelessWidget {
         itemName: foodItem.title,
         itemPrice: foodItem.price,
         imgUrl: foodItem.imgUrl,
-        leftAligned: (foodItem.id % 2) == 0 ? true : false,
       ),
     );
   }
@@ -165,14 +235,12 @@ Widget categories() { //THIS WILL BE PULLED FROM THE API, THE CATEGORIES........
 
 class Items extends StatelessWidget { //HERE START ITEMS....................
   Items({
-    @required this.leftAligned,
-    @required this.imgUrl,
+    this.imgUrl,
     @required this.itemName,
     @required this.itemPrice,
     @required this.hotel,
   });
 
-  final bool leftAligned;
   final String imgUrl;
   final String itemName;
   final double itemPrice;
@@ -186,10 +254,6 @@ class Items extends StatelessWidget { //HERE START ITEMS....................
     return Column(
       children: <Widget>[
         Container(
-          padding: EdgeInsets.only(
-            left: leftAligned ? 0 : containerPadding,
-            right: leftAligned ? containerPadding : 0,
-          ),
           child: Column(
             children: <Widget>[
               Container(
@@ -199,25 +263,20 @@ class Items extends StatelessWidget { //HERE START ITEMS....................
                     BoxDecoration(borderRadius: BorderRadius.circular(10)),
                 child: ClipRRect(
                   borderRadius: BorderRadius.horizontal(
-                    left: leftAligned
-                        ? Radius.circular(0)
-                        : Radius.circular(containerBorderRadius),
-                    right: leftAligned
-                        ? Radius.circular(containerBorderRadius)
-                        : Radius.circular(0),
+                    left: Radius.circular(0),
+                    right: Radius.circular(0),
                   ),
                   child: Image.network(
-                    imgUrl,
+                    "$imgUrl", // Change this later after modifying the data base.
+                     //"https://i2.chefiso.com/srv/images/vegasbomb-splash-coverblock-850x850.jpg",
+
                     fit: BoxFit.fill,
                   ),
                 ),
               ),
               SizedBox(height: 20),
               Container(
-                  padding: EdgeInsets.only(
-                    left: leftAligned ? 20 : 0,
-                    right: leftAligned ? 0 : 20,
-                  ),
+
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
