@@ -10,6 +10,8 @@ import 'cart.dart';
 import 'const/themeColor.dart';
 import 'model/drink_item.dart';
 import 'sing_in_page.dart';
+import 'model/orderFixed_item.dart';
+import './list_of_ordersFixed_page.dart';
 
 void main() => runApp(MyApp());
  
@@ -108,14 +110,14 @@ class _HomeState extends State<Home> {
                           Text("Tab"),
                         ]),
                     onPressed: () async {
-                      // List<OrderItem> orderItemsList = await orderItems();
-                      // Navigator.push(
-                      //     context,
-                      //     MaterialPageRoute(
-                      //         builder: (context) =>
-                      //             OrdersScreen(orderItemsList)));
-                      print(
-                          'Bars Button Pressed'); ////HERE IS THE NAVEGATION TO OTHER PAGES
+                      List<OrderFixedItem> orderFixedItemsList = await orderFixedItems();
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  OrdersFixedScreen(orderFixedItemsList)));
+                      print('Orders Button Pressed');
+                     
                     },
                   ),
                 ],
