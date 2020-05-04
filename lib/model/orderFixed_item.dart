@@ -7,6 +7,8 @@ class OrderFixedItem{
   String order_Group;
   String order_id;
   double order_Total_Price;
+  String color1;
+  String color2;
   bool delivered;
   bool ready;
 
@@ -14,6 +16,8 @@ class OrderFixedItem{
     this.order_Group,
     this.order_id,
     this.order_Total_Price,
+    this.color1,
+    this.color2,
     this.delivered = false,
     this.ready = false,
   });
@@ -23,6 +27,8 @@ class OrderFixedItem{
       order_id: json['orderId'], 
       order_Group: json['orderGroup'], 
       order_Total_Price: json['orderTotalPrice'], 
+      color1: json['color1'],
+      color2: json['color2'],
       delivered: json['delivered'], 
       ready: json['ready'],
     );
