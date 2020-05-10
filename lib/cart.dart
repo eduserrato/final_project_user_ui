@@ -8,8 +8,34 @@ import 'model/drink_item.dart';
 import 'model/orderFixed_item.dart';
 import './list_of_ordersFixed_page.dart';
 import 'package:final_project_user_ui/bar_search_page.dart';
+import 'package:square_in_app_payments/models.dart';
+import 'package:square_in_app_payments/in_app_payments.dart';
 
 class Cart extends StatelessWidget {
+
+  void _pay(){
+    InAppPayments.setSquareApplicationId('sq0idp-dUo7vopSdxh8yTE5gwRGxw');
+    InAppPayments.startCardEntryFlow(
+      onCardNonceRequestSuccess: _onCardNonceRequestSucces,
+      onCardEntryCancel: _onCardEntryCancel
+    );
+
+  }
+  void _onCardEntryCancel(){
+    //cancel Card entry
+  }
+  void _onCardNonceRequestSucces(CardDetails result){
+    print(result.nonce);
+    InAppPayments.completeCardEntry(
+      onCardEntryComplete: _cardrEntryComplete,
+    );
+
+  }
+  void _cardrEntryComplete(){
+    // Success
+  }
+  
+
   @override
   Widget build(BuildContext context) {
     final CartListBloc bloc = BlocProvider.getBloc<CartListBloc>();
@@ -20,7 +46,14 @@ class Cart extends StatelessWidget {
         if (snapshot.data != null) {
           foodItems = snapshot.data;
           return Scaffold(
-            appBar: AppBar(backgroundColor: Color(0xFFBA55D3),),
+            appBar: AppBar(
+              backgroundColor: Color(0xFFBA55D3), 
+              actions: <Widget>[
+                IconButton(icon: Icon(Icons.payment,color: Colors.white,), onPressed: null,
+                tooltip: 'Payment',),
+                Padding(padding: EdgeInsets.all(5))
+              ],
+            ),
             body: SafeArea(
               child: CartBody(foodItems),
             ),
@@ -123,7 +156,7 @@ class BottomBar extends StatelessWidget {
               {
                 orderGroup += "${foodItems[x].title} x ${foodItems[x].quantity} - ";
               }
-              orderFixedPost(orderGroup, orderTotalPrice);
+              await orderFixedPost(orderGroup, orderTotalPrice);
              List<OrderFixedItem> orderFixedItemsList = await orderFixedItems();
                       Navigator.push(
                           context,
