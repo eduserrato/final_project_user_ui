@@ -1,8 +1,8 @@
-# final_project_user_ui
+# Final Project Users UI
 
-A new Flutter project.
+This folder/repository is the front end for the users, this is what will be displayed to every user who opens their app on their phone
 
-## Getting Started
+## How it was made:
 
 This project is a starting point for a Flutter application.
 
